@@ -9,7 +9,6 @@ services:
       replicas: 1
     environment:
       MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: root
     networks:
       - mynet
 
