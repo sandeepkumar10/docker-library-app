@@ -1,0 +1,71 @@
+version: "3.9"
+
+services:
+  db:
+    image: sandeepkr98/mylibrary:db
+    ports:
+      - "3306:3306"
+    deploy:
+      replicas: 1
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/root_password
+    secrets:
+      - root_password
+    networks:
+      - mynet
+
+  auth_service:
+    image: sandeepkr98/mylibrary:auth
+    ports:
+      - "5001:5001"
+    deploy:
+      replicas: 1
+    depends_on:
+      - db
+    networks:
+      - mynet
+
+  book_service:
+    image: sandeepkr98/mylibrary:book
+    ports:
+      - "5002:5002"
+    deploy:
+      replicas: 1
+    depends_on:
+      - db
+    networks:
+      - mynet
+
+  borrow_service:
+    image: sandeepkr98/mylibrary:borrow
+    ports:
+      - "5003:5003"
+    deploy:
+      replicas: 1
+    depends_on:
+      - db
+    networks:
+      - mynet
+
+  frontend:
+    image: sandeepkr98/mylibrary:frontend
+    ports:
+      - "5000:5000"
+    deploy:
+      replicas: 2
+    depends_on:
+      - db
+      - auth_service
+      - book_service
+      - borrow_service
+    networks:
+      - mynet
+
+
+networks:
+  mynet:
+    driver: overlay
+
+secrets:
+  root_password:
+    file: ./mysql_root_password.txt

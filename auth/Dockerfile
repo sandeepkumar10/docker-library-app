@@ -1,8 +1,12 @@
 # Base image
 FROM python:3.9-slim
 
+LABEL author="Sandeep Kumar"
+
 # Set working directory
 WORKDIR /app
+
+EXPOSE 5001
 
 # Install dependencies
 COPY requirements.txt .
