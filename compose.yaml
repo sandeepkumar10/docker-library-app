@@ -67,4 +67,4 @@ networks:
 
 secrets:
   root_password:
-    file: ./mqsql_root_password.txt
+    file: ./mysql_root_password.txt
