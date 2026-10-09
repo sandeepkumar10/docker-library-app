@@ -1,7 +1,7 @@
 # Base image
 FROM python:3.9-slim
 
-LABEL author:"Sandeep Kumar"
+LABEL author="Sandeep Kumar"
 
 # Set working directory
 WORKDIR /app
