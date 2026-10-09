@@ -9,7 +9,9 @@ services:
       replicas: 1
     environment:
       MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
+    secrets:
+      - root_password
     networks:
       - mynet
 
@@ -62,3 +64,7 @@ services:
 networks:
   mynet:
     driver: overlay
+
+secrets:
+  root_password:
+    file: ./mqsql_root_password.txt
