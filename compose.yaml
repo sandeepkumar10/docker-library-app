@@ -8,9 +8,8 @@ services:
     deploy:
       replicas: 1
     environment:
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/root_password
-    secrets:
-      - root_password
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
     networks:
       - mynet
 
@@ -60,12 +59,6 @@ services:
       - borrow_service
     networks:
       - mynet
-
-
 networks:
   mynet:
     driver: overlay
-
-secrets:
-  root_password:
-    file: ./mysql_root_password.txt
